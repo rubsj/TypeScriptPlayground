@@ -27,4 +27,8 @@ to executed js file run
 `npm run tsc X.ts` or `yarn tsc X.ts`
 2. "ts-node": "ts-node"   
 **usage -**  when ts-node is not globally installed use this script to execute ts file
-`npm run ts-node X.ts` or `yarn ts-node X.ts` 
+`npm run ts-node X.ts` or `yarn ts-node X.ts`
+
+### Some learnings
+- if tsc command is giving compilation error for files in node_modules execute tsc with --lib
+- ts-node does not work for RXJS.  
