@@ -15,7 +15,8 @@ In short, Subjects should be able to:
 - Notify all Observers when a change happens
 The Observer, on the other hand, should only hold one property, and that is an update() method that can be called by a Subject when an update has occurred.
 
-#### Create 
+#### Creation Operator
+ ##### Create 
 - **refer** - https://www.learnrxjs.io/operators/creation/create.html
 - **signature** - public static create(onSubscription: function(observer: Observer): TeardownLogic): Observable
 - **description** - Creates a new Observable, that will execute the specified function when an Observer subscribes to it.
@@ -23,6 +24,20 @@ The Observer, on the other hand, should only hold one property, and that is an u
   - Because Observable extends class which already has defined static `create` function, but with different type signature, it was impossible to assign proper signature to `Observable.create`. Because of that, it has very general type `Function` and thus function passed to create will not be type checked, unless you explicitly state what signature it should have.     
   - When using TypeScript it is recommended to declare type signature of function passed to `create` as `(observer: Observer) => TeardownLogic`, where `Observer` and `TeardownLogic` are interfaces provided by the library.  
   - TeardownLogic interface is of type  Unsubscribable | Function | void;
+  
+##### of
+- Emits the arguments you provide, then completes.
+- Unlike [`from`](#from), it does not do any flattening and emits each argument in whole as a separate `next` notification.
+
+##### from
+- **signature**: from(ish: ObservableInput, mapFn: function, thisArg: any, scheduler: Scheduler): Observable
+- Turn an array, promise, or iterable into an observable.
+- Converts almost anything to an Observable.
+- :bulb: This operator can be used to convert a promise to an observable!   
+- :bulb: For arrays and iterables, all contained values will be emitted as a sequence!
+- :bulb: This operator can also be used to emit a string as a sequence of characters!
+
+  
 
 
 
