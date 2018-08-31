@@ -37,6 +37,16 @@ The Observer, on the other hand, should only hold one property, and that is an u
 - :bulb: For arrays and iterables, all contained values will be emitted as a sequence!
 - :bulb: This operator can also be used to emit a string as a sequence of characters!
 
+#### bindCallback
+- Converts a callback API to a function that returns an Observable.
+- **signature**: bindCallback<T>(callbackFunc: Function, resultSelector?: Function | SchedulerLike, scheduler?: SchedulerLike): (...args: any[]) => Observable<T>
+- Give it a function f of type f(x, callback) and it will return a function g that when called as g(x) will output an Observable.
+- bindCallback is not an operator because its input and output are not Observables. The input is a function func with some parameters, the last parameter must be a callback function that func calls when it is done.
+- The output of bindCallback is a function that takes the same parameters as func, except the last one (the callback). When the output function is called with arguments it will return an Observable. If function func calls its callback with one argument the Observable will emit that value. If on the other hand the callback is called with multiple values the resulting Observable will emit an array with said values as arguments.
+- It is very important to remember that input function func is not called when the output function is, but rather when the Observable returned by the output function is subscribed. This means if func makes an AJAX request, that request will be made every time someone subscribes to the resulting Observable, but not before.
+- 
+ 
+
   
 
 
