@@ -3,10 +3,12 @@
  * The create() method should return an Observable.
  * Furthermore, our Observable class needs a subscribe() method that takes a function as a parameter.
  */
+import { MyObservableWithFilter } from './custom_observable_with_filter';
+
 export class MyObservable{
     //What do we know about the behaviourFn() that was passed into the create method?
     // We know it takes an Observer instance as a parameter and it also lays out what values the Observer instance should emit.
-    private behaviourFn ;
+    behaviourFn ;
     static create(behaviourFn) : MyObservable{
         return new MyObservable(behaviourFn);
     }
@@ -24,6 +26,10 @@ export class MyObservable{
         let observer = new MyObserver(dataFn);
         this.behaviourFn(observer);
     }
+
+    filter(filterFn): MyObservableWithFilter{
+      return new MyObservableWithFilter(filterFn, this.behaviourFn);
+    }
 }
 
 /**
@@ -36,12 +42,16 @@ export class MyObservable{
  * the third and final thing we did was to ensure that we invoked dataFn() inside of the next() method to be sure that
  * the subscriber is being told every time we generate a value by calling the next() method.
  */
-class MyObserver{
+export class MyObserver{
     constructor(private dataFn){}
 
     next(val){
         this.dataFn(val);
     }
+}
+
+export interface MySubscription{
+    unsubscribe();
 }
 
 let stream$ = MyObservable.create(observer => observer.next(1));

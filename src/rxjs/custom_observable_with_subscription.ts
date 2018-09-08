@@ -1,6 +1,4 @@
-interface MySubscription{
-    unsubscribe();
-}
+import { MyObserver, MySubscription } from './custom_observable';
 
 class MyObservableWithSubscription {
     constructor(private behaviourFn){
@@ -29,16 +27,6 @@ class MyObservableWithSubscription {
         };
     }
 }
-
-class MyObserver{
-    constructor(private dataFn){
-    }
-
-    next(val){
-      this.dataFn(val);
-    }
-}
-
 
 let stream$ = MyObservableWithSubscription.create(observer => observer.next("hello subscription"));
 
