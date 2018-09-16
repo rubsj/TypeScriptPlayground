@@ -44,7 +44,27 @@ The Observer, on the other hand, should only hold one property, and that is an u
 - bindCallback is not an operator because its input and output are not Observables. The input is a function func with some parameters, the last parameter must be a callback function that func calls when it is done.
 - The output of bindCallback is a function that takes the same parameters as func, except the last one (the callback). When the output function is called with arguments it will return an Observable. If function func calls its callback with one argument the Observable will emit that value. If on the other hand the callback is called with multiple values the resulting Observable will emit an array with said values as arguments.
 - It is very important to remember that input function func is not called when the output function is, but rather when the Observable returned by the output function is subscribed. This means if func makes an AJAX request, that request will be made every time someone subscribes to the resulting Observable, but not before.
+
+#### tap
+- returns An Observable identical to the source, but runs the specified Observer or callback(s) for each item.
+- Intercepts each emission on the source and runs a function, but returns an output which is identical to the source *as long as errors don't occur*.
+- Returns a mirrored Observable of the source Observable, but modified so that the provided Observer is called to perform a side effect for every value, error, and completion emitted by the source. Any errors that are thrown in the aforementioned Observer or handlers are safely sent down the error path of the output Observable.
+- If the Observable returned by tap is not subscribed, the side effects specified by the Observer will never happen. tap therefore simply spies on existing execution, it does not trigger an execution to happen like subscribe does.
+
+#### mergeMap / flatMap
+- :bulb: flatMap is an alias for mergeMap!
+- Maps each value to an Observable, then flattens all of these inner Observables using mergeAll.
+- Returns an Observable that emits items based on applying a function that you supply to each item emitted by the source Observable, where that function returns an Observable, and then merging those resulting Observables and emitting the results of this merger.
+- :bulb: If only one inner subscription should be active at a time, try [`switchMap`](#switchMap)!
+- :bulb: If the order of emission and subscription of inner observables is important, try [`concatMap`](#concatMap)!
+
+#### switchMap
+-
+
+#### concatMap
 - 
+
+
  
 
   
