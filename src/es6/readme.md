@@ -11,3 +11,7 @@
 #### Object specific
 - {abc} is same as {abc: abc} 
 
+#### Promise
+- Promises are asynchronus. If there are two promises in a call both can get executed in mixed order
+- if promises are chained it stops execution at the first promise that is rejected else will execute all promises in chain
+
