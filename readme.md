@@ -16,7 +16,7 @@ You can still run it from the terminal as `./node_modules/.bin/tsc`, and you can
 `npm install --global ts-node`
 After installing `ts-node`, run `ts-node X.ts` where `X.ts` is the name of a script you want to run.
 
-- If you want to conpile typescript to javascript do
+- If you want to compile typescript to javascript do
 `tsc x.ts` where x is the name of file
 to executed js file run
 `node x.js`
