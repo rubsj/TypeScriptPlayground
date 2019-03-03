@@ -84,7 +84,7 @@
 - To begin, a constructor function is just a regular function. It becomes a constructor when it is called on by an instance with the new keyword. In JavaScript, we capitalize the first letter of a constructor function by convention.
 - Prototype properties and methods are not automatically linked when you use call() to chain constructors. We will use Object.create() to link the prototypes, making sure to put it before any additional methods are created and added to the prototype.
 - Following the ECMAScript standard, the notation someObject.[[Prototype]] is used to designate the prototype of someObject. 
-- *Since ECMAScript 2015, the [[Prototype]] is accessed using the accessors Object.getPrototypeOf() and Object.setPrototypeOf().* This is equivalent to the JavaScript property __proto__ which is non-standard but de-facto implemented by many browsers.
+- *Since ECMAScript 2015, the [[Prototype]] is accessed using the accessors Object.getPrototypeOf() and Object.setPrototypeOf().This is equivalent to the JavaScript property __proto__ which is non-standard but de-facto implemented by many browsers.
 - It should not be confused with the `func.prototype` property of functions, which instead specifies the [[Prototype]] to be assigned to all instances of objects created by the given function when used as a constructor. 
 - The Object.prototype property represents the Object prototype object.
 
@@ -105,7 +105,30 @@
 - The same principle applies when invoking a function with the new operator to create an instance of an object. When invoked in this manner, the value of this within the scope of the function will be set to the newly created instance.
 - When called as an unbound function, this will default to the global context or window object in the browser.
 - if the function is executed in strict mode, the context will default to undefined.
+-  The this keyword is most misunderstood when
+    -> we borrow a method that uses this
+       - it is fixed by using function call()/apply()
+    -> when we assign a method that uses this, to a variable
+       - We can fix this problem by specifically setting the this value with the bind method
+    -> when a function that uses this is passed as a callback function
+       - it is fixed by using function bind()
+    -> when this is used inside a closure
+       - To fix the problem with using this inside the anonymous function passed to the forEach method, we use a common practice in JavaScript and set the this value to another variable before we enter anonymous function
 
+##### Bind , Call , Apply
+- Bind
+  - bind () allows us to easily set which specific object will be bound to this when a function or method is invoked
+  - Bind () Allows us to Borrow Methods
+  - Bind Allows Us to Curry a Function 
+    - Function Currying, also known as partial function application, is the use of a function (that accept one or more arguments) that returns a new function with some of the arguments already set. 
+    - The function that is returned has access to the stored arguments and variables of the outer function.
+- Call
+- Apply
+  -apply function in particular allows us to execute a function with an array of parameters, such that each parameter is passed to the function individually
+   when the function executes—great for variadic functions; a variadic function takes varying number of arguments, not a set number of arguments as most functions do.
+  - 
+-The arguments object that is a property of all JavaScript functions is an array-like object, and for this reason, 
+one of the most popular uses of the call () and apply () methods is to extract the parameters passed into a function from the arguments object.
 
 ##### Context vs. Scope
 -Every function invocation has both a scope and a context associated with it. 
