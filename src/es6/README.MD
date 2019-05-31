@@ -163,4 +163,38 @@ first();
 - Returning the nested function allows you to maintain access to the local variables, arguments, and inner function declarations of its outer function. 
 - 
 
+##### Promise
+- reference
+  - 'https://codeburst.io/a-simple-guide-to-es6-promises-d71bacd2e13a'
+- A Promise is an object that is used as a placeholder for the eventual results of a deferred (and possibly asynchronous) computation.
+- Simply, a promise is a container for a future value.
+- A new promise is created by the using the Promise constructor. `new Promise( /* executor */ function(resolve, reject) { ... } );`
+  - Observe that the constructor accepts a function with two parameters. This function is called an executor function and it describes the computation to be done. 
+  - The parameters conventionally named resolve and reject, mark successful and unsuccessful eventual completion of the executor function, respectively.
+  - The resolve and reject are functions themselves and are used to send back values to the promise object. 
+- A promise can only succeed(resolved) or fail(reject) once. It cannot succeed or fail twice, neither can it switch from success to failure or vice versa.
+- Once the promise reaches a final state, the state won’t change (that is, the computation will not be done again ) even if you attach .thenhandler multiple times.
+-  promise is evaluated eagerly. Itstarts its execution as soon as you declare and bind it to a variables.
+- To ensure that promises are not fired immediately but evaluates lazily, we wrap them in functions. 
+- Note that onRejected will be executed even if an error was thrown. It’s not necessary to reject a promise by passing an error in the reject function. That is, a promise is reject in both cases.
+- Remember that .catch is just a syntactical sugar for .then(undefined, onRejected).
+- .then() and .catch() methods always return a promise. So you can chain multiple .then calls together. 
+- However, a .catch itself is alwaysresolved as a promise, and not rejected (unless you intentionally throw an error).
+- It is recommended to use .catch and not .then with both onResolved and onRejected
+- As we can see PromiseStatus can have three different values. pending resolved or rejected When promise is created 
+  PromiseStatuswill be in the pending status and will have PromiseValue as undefined until the promise is either resolved or
+  rejected. When a promise is in resolved or rejected states, a promise is said to be settled.
+
+#### Async/Await
+- refer https://javascript.info/async-await
+- The `async` keyword before a function has two effects: 
+  - Makes it always return a promise.
+  - Allows to use `await` in it. 
+- The `await` keyword before a promise makes JavaScript wait until that promise settles, and then:  
+  - If it’s an error, the exception is generated, same as if throw error were called at that very place.
+  - Otherwise, it returns the result, so we can assign it to a value.
+- With `async/await` we rarely need to write` promise.then/catch`, but we still shouldn’t forget that they are based on promises,
+ because sometimes (e.g. in the outermost scope) we have to use these methods. 
+ Also Promise.all is a nice thing to wait for many tasks simultaneously.  
+
 
