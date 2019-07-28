@@ -5,18 +5,24 @@ const sleep = (ms) => {
 async function waitOrRejectOrErr() {
 
     //wait a sec
-    await sleep(1000);
+   // await sleep(1000);
     return new Promise((resolve, reject) => {
+      setTimeout(()=>{
+          try{
+              let randomVal = Math.random() * 100;
+              console.log('random val is :', randomVal);
+              if (randomVal <= 50) {
+                  resolve('Hello Promises');
+              } else if (randomVal > 50 && randomVal <= 90) {
+                  reject('In 40% of the cases, I am rejected!!');
+              }
 
-        let randomVal = Math.random() * 100;
-        console.log('random val is :', randomVal);
-        if (randomVal <= 50) {
-            resolve('Hello Promises');
-        } else if (randomVal > 50 && randomVal <= 90) {
-            reject('In 40% of the cases, I am rejected!!');
-        }
+              throw Error('In 10% of the cases, I fail. Miserably.');
 
-        throw Error('In 10% of the cases, I fail. Miserably.');
+          }catch(e){
+              reject(e.toString());
+          }
+      } , 1000);
 
     });
 }
