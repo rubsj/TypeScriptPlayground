@@ -11,12 +11,12 @@ const myPromise = new Promise((resolve , reject) =>{
 
 });
 
-myPromise.then(resolved=>console.log(resolved) , err=> console.log(err)); //this is same as line below
-myPromise.then(rsvl=>console.log("resolved 2" ,rsvl)).catch(err=> console.log("rejected 2: ",err));
+myPromise.then(resolved=>console.log(resolved) , err=> console.log(err.toString())); //this is same as line below
+myPromise.then(rsvl=>console.log("resolved 2" ,rsvl)).catch(err=> console.log("rejected 2: ",err.toString()));
 // Two functions
 var result="default val";
 const onResolved = (resolvedValue) =>result =resolvedValue;
-const onRejected = (error) => result =error;
+const onRejected = (error) => result =error.toString();
 
 myPromise.then(onResolved).then(null , onRejected);
 
