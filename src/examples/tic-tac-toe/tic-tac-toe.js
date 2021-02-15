@@ -5,15 +5,16 @@ let gameState = ["", "", "", "", "", "", "", "", ""];
 const winningMessage = () => `Player ${currentPlayer} has won!`;
 const drawMessage = () => `Game ended in a draw`;
 const currentPlayerTurn = () => `Its ${currentPlayer}'s turn`;
+
 const winningConditions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
+    [{ position: 0, class: 'horizontal' }, { position: 1, class: 'horizontal' }, { position: 2, class: 'horizontal' }],
+    [{ position: 3, class: 'horizontal' }, { position: 4, class: 'horizontal' }, { position: 5, class: 'horizontal' }],
+    [{ position: 6, class: 'horizontal' }, { position: 7, class: 'horizontal' }, { position: 8, class: 'horizontal' }],
+    [{ position: 0, class: 'vertical' }, { position: 3, class: 'vertical' }, { position: 6, class: 'vertical' }],
+    [{ position: 1, class: 'vertical' }, { position: 4, class: 'vertical' }, { position: 7, class: 'vertical' }],
+    [{ position: 2, class: 'vertical' }, { position: 5, class: 'vertical' }, { position: 8, class: 'vertical' }],
+    [{ position: 0, class: 'diagonal-left' }, { position: 4, class: 'diagonal-left' }, { position: 8, class: 'diagonal-left' }],
+    [{ position: 2, class: 'diagonal-right' }, { position: 4, class: 'diagonal-right' }, { position: 6, class: 'diagonal-right' }]
 ];
 
 statusDisplay.innerHTML = currentPlayerTurn();
@@ -29,21 +30,23 @@ function handlePlayerChange() {
 }
 
 function handleResultValidation() {
- 
+
     let won = false;
+    let winningCondition;
     // there are 9 possible win condition iterate for each condition and 
     // check if any one of them is valid
     for (let i = 0; i < 8; i++) {
         const winCondition = winningConditions[i];
-        let position1 = gameState[winCondition[0]];
-        let position2 = gameState[winCondition[1]];
-        let position3 = gameState[winCondition[2]];
+        let position1 = gameState[winCondition[0].position];
+        let position2 = gameState[winCondition[1].position];
+        let position3 = gameState[winCondition[2].position];
         if (position1 === '' || position2 === '' || position3 === '') {
             continue;
         }
 
         if (position1 === position2 && position2 === position3) {
             won = true;
+            winningCondition = winCondition;
             break;
         }
     }
@@ -51,7 +54,7 @@ function handleResultValidation() {
     if (won) {
         statusDisplay.innerHTML = winningMessage();
         gameActive = false;
-        return;
+        return winningCondition;
     }
     let roundDraw = !gameState.includes("");
     if (roundDraw) {
@@ -72,7 +75,20 @@ function handleCellClick(clickedCellEvent) {
     }
 
     handleCellPlayed(clickedCell, clickedCellIndex);
-    handleResultValidation();  
+    const winningResult = handleResultValidation();
+    if (!!winningResult) {
+        addWinningLine(winningResult)
+    }
+
+}
+
+function addWinningLine(winningResult) {
+    const winningCell1 = document.querySelector(`cell[data-cell-index="${winningResult[0].position}"]`);
+    const winningCell2 = document.querySelector(`cell[data-cell-index="${winningResult[1].position}"]`);
+    const winningCell3 = document.querySelector(`cell[data-cell-index="${winningResult[2].position}"]`);
+    winningCell1.insertAdjacentHTML('beforeend', `<hr class="${winningResult[0].class}">`)
+    winningCell2.insertAdjacentHTML('beforeend', `<hr class="${winningResult[1].class}">`)
+    winningCell3.insertAdjacentHTML('beforeend', `<hr class="${winningResult[2].class}">`)
 }
 
 function handleRestartGame() {
