@@ -29,6 +29,15 @@ function handlePlayerChange() {
     statusDisplay.innerHTML = currentPlayerTurn();
 }
 
+function computerPlay(){
+    const availablePositions =  gameState.map((val, index) => val ==="" ? index :undefined).filter(val=> val !==undefined);
+    const max = availablePositions.length-1;
+    const min = 0;
+    const positionToPlay = Math.floor(Math.random()*(max-min+1)) + min;
+    return availablePositions[positionToPlay];
+
+}
+
 function handleResultValidation() {
 
     let won = false;
@@ -75,10 +84,20 @@ function handleCellClick(clickedCellEvent) {
     }
 
     handleCellPlayed(clickedCell, clickedCellIndex);
-    const winningResult = handleResultValidation();
+    let winningResult = handleResultValidation();
     if (!!winningResult) {
-        addWinningLine(winningResult)
+        addWinningLine(winningResult);
+        return;
     }
+    
+    const computerPlayPosition = computerPlay();
+    cellElement= document.querySelector(`cell[data-cell-index="${computerPlayPosition}"]`);
+    handleCellPlayed(cellElement , computerPlayPosition);
+     winningResult = handleResultValidation();
+    if (!!winningResult) {
+        addWinningLine(winningResult);
+    }
+    
 
 }
 
