@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Random color example — event handler property</title>
+    <style>
+      button {
+        margin: 10px;
+      }
+
+      .container{
+          width: 500px;
+          height: 300px;
+          margin: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+      <div class="container">
+        <button>Change color</button>
+      </div>
+    
+    <script>
+      const btn = document.querySelector('button');
+
+      function random(number) {
+        return Math.floor(Math.random()*number);
+      }
+
+      function bgChange() {
+        const rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+        const container = document.querySelector('.container');
+        container.style.backgroundColor = rndCol;
+      }
+
+      function bgChangeFocus(event) {
+        const rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+        const container = document.querySelector('.container');
+       // document.body.style.backgroundColor = rndCol;
+       event.target.style.backgroundColor = rndCol;
+        console.log('on focus chnage called');
+      }
+
+      function bgChangeBlur() {
+        const rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+       // const container = document.querySelector('.container');
+       // container.style.backgroundColor = rndCol;
+       document.body.style.backgroundColor = rndCol;
+        console.log('on blur chnage called');
+      }
+
+
+      btn.onclick = bgChange;
+      btn.onfocus = bgChangeFocus;
+      btn.onblur = bgChangeBlur;
+      btn.onmouseover = bgChange;
+      btn.onmouseout = bgChange;
+      window.onkeypress = bgChange;
+    </script>
+  </body>
+</html>

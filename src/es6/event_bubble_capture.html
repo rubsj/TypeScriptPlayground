@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            display: flex;
+            flex-direction: column;
+            
+        }
+        .parent{
+            width: 600px;
+            height: 300px;
+            border: 1px solid red;
+            margin: 1rem;
+        }
+
+        .child{
+            width: 500px;
+            height: 200px;
+            border: 1px solid blue;
+            margin: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button{
+           margin: 2rem;
+           height: fit-content;
+        }
+        .result{
+            margin: 1rem auto auto 3rem;
+           
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <p>Description : </p>
+            <p>Parent container is registered to receive click event on cpature phase</p>
+            <p>child and button  (bubble phase ) elements are registered to receive click event on bubble phase</p>
+            <p> button (capture phase )element is registered to receive click event on capture phase</p>
+        </div>
+        <div class="parent">
+            <div class="child"> 
+             <button class="button" id="captureButton">capture phase</button>
+             <button class="button" id="bubbleButton">bubble phase</button>
+
+            </div>   
+        </div>
+        <div class="result">
+
+        </div>
+        
+    </div>
+    <script>
+        const parent = document.querySelector('.parent');
+        const child = document.querySelector('.child');
+        const bubbleButton = document.querySelector('#bubbleButton');
+        const captureButton = document.querySelector('#captureButton');
+        const result = document.querySelector('.result');
+        
+        parent.addEventListener('click' , (event)=>{
+            console.log('parent div clicked');
+            const pNode = document.createElement('li');
+            pNode.innerText = 'parent div clicked';
+            result.appendChild(pNode);
+        } , true);
+        child.addEventListener('click' , (event)=>{
+            console.log('child div clicked');
+            const pNode = document.createElement('li');
+            const textNode = document.createTextNode('child div clicked');
+            pNode.append(textNode);
+            result.appendChild(pNode);
+        } );
+        bubbleButton.addEventListener('click' , (event)=>{
+            console.log('bubble button clicked');
+            const pNode = document.createElement('li');
+            pNode.innerText = 'bubble button clicked';
+            result.appendChild(pNode);
+        } );
+        captureButton.addEventListener('click' , (event)=>{
+            console.log('capture button clicked');
+            const pNode = document.createElement('li');
+            pNode.innerText = 'capture button clicked';
+            result.appendChild(pNode);
+        } , true);
+    </script>
+</body>
+</html>
