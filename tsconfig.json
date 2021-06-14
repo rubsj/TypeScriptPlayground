@@ -18,9 +18,6 @@
     ],
     "lib": [
       "es6" , "dom"
-    ],
-    "exclude": [
-      "node_modules"
     ]
   }
 }
