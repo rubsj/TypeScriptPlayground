@@ -6,11 +6,12 @@
   "license": "MIT",
   "dependencies": {
     "rxjs": "^6.2.2",
-    "typescript": "^4.3.2"
+    "typescript": "^5.0.4"
   },
   "devDependencies": {
-    "@types/node": "^15.12.2",
-    "ts-node": "^15.12.2"
+    "@types/node": "^20.2.5",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths" : "^4.2.0"
   },
   "scripts": {
     "tsc": "tsc"

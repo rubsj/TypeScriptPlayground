@@ -32,3 +32,25 @@ to executed js file run
 ### Some learnings
 - if tsc command is giving compilation error for files in node_modules execute tsc with --lib
 - ts-node does not work for RXJS.  
+
+### setting up debug
+- setup launch.json to execute the main.ts in debug
+```
+        {
+            "name": "Debug Typescript",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/main.ts",
+            "runtimeArgs": ["-r" , "ts-node/register" , "-r" , "tsconfig-paths/register"],
+            "console": "integratedTerminal",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js",
+                "!**/node_modules/**"
+            ],
+          
+            "type": "node"
+        },
+```
+- sine launch is configured to launch main.ts in debug , make sure the file you need to test is called through main.ts
