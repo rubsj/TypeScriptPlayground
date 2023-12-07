@@ -31,7 +31,7 @@ function removeElement2(nums: number[], val: number): number {
 };
 
 // using delete operation
-function removeElement(nums: number[], val: number): number {
+function removeElement3(nums: number[], val: number): number {
     while (nums.includes(val)) {
         delete nums[nums.indexOf(val)];
     }
@@ -69,10 +69,12 @@ function removeElement(nums: number[], val: number): number {
     return nums.length;
 }
 
-function removeElement1(nums: number[], val: number): number {
+function removeElement4(nums: number[], val: number): number {
     while (nums.indexOf(val) !== -1) {
         nums.splice(nums.indexOf(val), 1);
     }
     console.log(nums);
     return nums.length;
 };
+
+//executeRemoveElement();

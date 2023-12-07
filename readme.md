@@ -53,4 +53,4 @@ to executed js file run
             "type": "node"
         },
 ```
-- sine launch is configured to launch main.ts in debug , make sure the file you need to test is called through main.ts
+- since launch is configured to launch main.ts in debug , make sure the file you need to test is called through main.ts
